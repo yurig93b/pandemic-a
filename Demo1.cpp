@@ -1,5 +1,5 @@
 /**
- * Demo program for Pandemic exercise.
+ * Demo program for Pandemic exercise - Researcher role
  * 
  * Author: Erel Segal-Halevi
  * Since : 2021-04
@@ -10,14 +10,7 @@
 #include "Color.hpp"
 #include "Player.hpp"
 
-#include "OperationsExpert.hpp"
-#include "Dispatcher.hpp"
-#include "Scientist.hpp"
 #include "Researcher.hpp"
-#include "Medic.hpp"
-#include "Pharmacist.hpp"
-#include "GeneSplicer.hpp"
-#include "FieldDirector.hpp"
 
 using namespace pandemic;
 
@@ -129,23 +122,24 @@ int main() {
 	r.take_card(City::Miami);
 	r.take_card(City::Bogota);
 	r.take_card(City::Lima);
+	r.drive(City::MexicoCity)
 	r.discover_cure(Color::Yellow); // legal action: you discard 5 yellow cards and discover a yellow cure.
+		// NOTE: there is no research station in MexicoCity, so for other roles this action would throw an exception.
+		//       But for the researcher it is legal, since she may discover a cure in any city.
 	try {
 		r.fly_direct(City::Miami); // illegal action: you discarded the Miami card to discover a cure, so you cannot use this card.
 	} catch (const exception& ex) {
 	 	cout << "   caught exception: " << ex.what() << endl;  // prints a meaningful error message.
 	}
 
-
 	/* treat action after discovering a cure */
 
-	r.drive(City::MexicoCity);
 	r.treat(City::MexicoCity);   // you now remove ALL disease cubes from MexicoCity, since there is a cure.
-
 
 
 	/* clean the board */
 
+	cout << board << endl;  // print the board in any reasonable format.
 	cout << board.is_clean() << endl;  // print "0" - the board is not clean.
 
 	r.drive(City::Chicago);
@@ -154,6 +148,7 @@ int main() {
 	r.fly_direct(City::HoChiMinhCity);
 	r.treat(City::HoChiMinhCity);
 
+	cout << board << endl;  // print the board in any reasonable format.
 	cout << board.is_clean() << endl;  // print "1" - the board is clean - congratulations!!! You cured all diseases!!!
 }
 
