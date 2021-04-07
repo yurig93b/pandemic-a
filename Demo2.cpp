@@ -28,10 +28,10 @@ using namespace std;
 
 // Give some four red cards to the given player, to initialize an example.
 void take_four_red_cards(Player& player) {
-	player.take_card(City::Sydney);
-	player.take_card(City::HoChiMinhCity);
-	player.take_card(City::HongKong);
-	player.take_card(City::Bangkok);
+	player.take_card(City::Sydney)
+	      .take_card(City::HoChiMinhCity)
+	      .take_card(City::HongKong)
+	      .take_card(City::Bangkok);
 }
 
 // Checks if the given player can discover a cure.

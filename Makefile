@@ -8,7 +8,7 @@ SOURCES=Board.cpp Player.cpp OperationsExpert.cpp Dispatcher.cpp Scientist.cpp R
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
 
-run: demo
+run: demo1
 	./$^
 
 demo1: Demo1.o $(OBJECTS)
