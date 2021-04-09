@@ -8,7 +8,6 @@
 #include "Board.hpp"
 #include "City.hpp"
 #include "Color.hpp"
-#include "Player.hpp"
 
 #include "OperationsExpert.hpp"
 
@@ -20,10 +19,10 @@ using namespace std;
 
 int main() {
 	Board board;  // Initialize an empty board
-	board.set_infection_level(City::Kinshasa, 2)      // put 2 yellow disease cubes in Kinshasa
-	     .set_infection_level(City::MexicoCity, 3)    // put 3 yellow disease cubes in MexicoCity
-	     .set_infection_level(City::HoChiMinhCity, 1) // put 1 red disease cube in HoChiMinhCity
-	     .set_infection_level(City::Chicago, 1);      // put 1 blue disease cube in Chicago
+	board[City::Kinshasa] = 2;      // put 2 yellow disease cubes in Kinshasa
+	board[City::MexicoCity] = 3;    // put 3 yellow disease cubes in MexicoCity
+	board[City::HoChiMinhCity] = 1; // put 1 red disease cube in HoChiMinhCity
+	board[City::Chicago] = 1;      // put 1 blue disease cube in Chicago
 
 	OperationsExpert r {board, City::Atlanta};  // initialize an "operations expert" player on the given board, in Atlanta.
 	r.take_card(City::Atlanta)
@@ -62,8 +61,11 @@ int main() {
 	/* treat action */
 
 	r.drive(City::Kinshasa);    // legal action: you move from Johannesburg to a connected city.
+	cout << board[City::Kinshasa] << endl; // 2
 	r.treat(City::Kinshasa);    // legal action: you remove 1 disease cube from current city (1 cube remains).
+	cout << board[City::Kinshasa] << endl; // 1
 	r.treat(City::Kinshasa);    // legal action: you remove 1 disease cube from current city (0 cubes remain).
+	cout << board[City::Kinshasa] << endl; // 0
 	try {
 		r.treat(City::Kinshasa);  // illegal action: no more cubes remain in Kinshasa.
 	} catch (const exception& ex) {

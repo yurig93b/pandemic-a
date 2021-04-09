@@ -52,8 +52,7 @@ void check_cure_discovery(Player& player) {
 	cout << "  Four red cards, no research station: " << can_discover_cure(player, Color::Red) << endl;
 
 	take_four_red_cards(player);
-	player.take_card(City::Atlanta);
-	player.build();
+	player.drive(City::Atlanta);
 	cout << "  Four red cards, in a research station: " << can_discover_cure(player, Color::Red) << endl;
 
 	take_four_red_cards(player);
@@ -74,44 +73,41 @@ void check_cure_discovery(Player& player) {
 
 int main() {
 	cout << boolalpha;
+	Board board;
+
+	OperationsExpert builder {board, City::Atlanta}; 
+	builder.build();  // Build a research station in Atlanta, to prepare the board for the tests.
+
 	{
-		Board board;
-		FieldDoctor player(board, City::Atlanta);
+		FieldDoctor player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false false false true
 	}
 	{
-		Board board;
-		Pharmacist player(board, City::Atlanta);
+		Pharmacist player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false false false true
 	}
 	{
-		Board board;
-		OperationsExpert player(board, City::Atlanta);
+		OperationsExpert player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false false false true
 	}
 	{
-		Board board;
-		Medic player(board, City::Atlanta);
+		Medic player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false false false true
 	}
 	{
-		Board board;
-		Dispatcher player(board, City::Atlanta);
+		Dispatcher player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false false false true
 	}
 	{
-		Board board;
-		GeneSplicer player(board, City::Atlanta);
+		GeneSplicer player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false ***true*** false true [can find a cure with 4 red and 1 black card]
 	}
 	{
-		Board board;
-		Researcher player(board, City::Atlanta);
+		Researcher player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false false ***true*** true [can find a cure without a research station]
 	}
 	{
-		Board board;
-		Scientist player(board, City::Atlanta, 4);
+		Scientist player(board, City::Washington, 4);
 		check_cure_discovery(player);  // should print: false ***true*** ***true*** false true  [can find a cure with only 4 red cards]
 	}
 }
