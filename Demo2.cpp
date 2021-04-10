@@ -17,7 +17,7 @@
 #include "OperationsExpert.hpp"
 #include "Dispatcher.hpp"
 #include "Medic.hpp"
-#include "Pharmacist.hpp"
+#include "Virologist.hpp"
 
 using namespace pandemic;
 
@@ -83,7 +83,7 @@ int main() {
 		check_cure_discovery(player);  // should print: false false false false true
 	}
 	{
-		Pharmacist player(board, City::Washington);
+		Virologist player(board, City::Washington);
 		check_cure_discovery(player);  // should print: false false false false true
 	}
 	{
