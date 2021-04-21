@@ -132,7 +132,9 @@ int main() {
 
 	/* treat action after discovering a cure */
 
+	cout << board[City::MexicoCity] << endl; // 3
 	player.treat(City::MexicoCity);   // you now remove ALL disease cubes from MexicoCity, since there is a yelllow cure.
+	cout << board[City::MexicoCity] << endl; // 0
 
 
 	/* clean the board */
