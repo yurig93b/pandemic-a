@@ -25,8 +25,7 @@ int main() {
 	board[City::Chicago] = 1;      // put 1 blue disease cube in Chicago
 
 	OperationsExpert r {board, City::Atlanta};  // initialize an "operations expert" player on the given board, in Atlanta.
-	r.take_card(City::Atlanta)
-	 .take_card(City::Johannesburg)
+	r.take_card(City::Johannesburg)
 	 .take_card(City::Khartoum)
 	 .take_card(City::SaoPaulo)
 	 .take_card(City::BuenosAires)
@@ -35,7 +34,9 @@ int main() {
 
 	/* build action */
 
-	r.build();  // legal action: you discard the Atlanta card and build a research station in Atlanta.
+	r.build();  // legal action: you build a research station in Atlanta.
+		// NOTE: you do not have the Atlanta card, so for other roles this would throw an exception.
+		//       But for the OperationsExpert it is legal, since he may build a research station without a card.
 
 
 	/* drive action */
@@ -101,7 +102,7 @@ int main() {
 
 	/* fly_shuttle action */
 
-	r.fly_shuttle(City::Atlanta); // legal action: you fly from one research station to another.
+	r.fly_shuttle(City::Atlanta); // legal action: you fly from one research station to another. 
 	r.fly_shuttle(City::LosAngeles); // legal action: you fly from one research station to another.
 	try {
 		r.fly_shuttle(City::Chicago); // illegal action: there is no research station in Chicago.
