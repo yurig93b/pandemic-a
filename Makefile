@@ -8,14 +8,15 @@ SOURCES=Board.cpp Player.cpp OperationsExpert.cpp Dispatcher.cpp Scientist.cpp R
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
 
-run: demo1
-	./$^
+run: demo1 demo2
+	./demo1
+	./demo2
 
 demo1: Demo1.o $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o demo
+	$(CXX) $(CXXFLAGS) $^ -o demo1
 
 demo2: Demo2.o $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o demo
+	$(CXX) $(CXXFLAGS) $^ -o demo2
 
 test: TestCounter.o Test.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o test
