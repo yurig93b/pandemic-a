@@ -24,7 +24,7 @@ test: TestCounter.o Test.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o test
 
 tidy:
-	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
+	clang-tidy $(SOURCES) $(TIDY_FLAGS) --
 
 valgrind: demo1 demo2 test
 	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./demo1 2>&1 | { egrep "lost| at " || true; }
