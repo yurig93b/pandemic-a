@@ -228,9 +228,13 @@ TEST_CASE ("OperationsExpert customs") {
     Board b{};
 
     OperationsExpert oe{b, City::Tokyo};
+
+    // Check can build a research center anywhere without a card.
     oe.take_card(City::Tokyo);
     oe.build();
     CHECK(oe.has_card(City::Tokyo));
+
+    CHECK(oe.role() == "OperationsExpert");
 }
 
 TEST_CASE ("Dispatcher customs") {
@@ -239,16 +243,20 @@ TEST_CASE ("Dispatcher customs") {
     OperationsExpert oe{b, City::Tokyo};
     oe.build();
 
+    // Check can fly direct without wasting a card when research center inplace
     Dispatcher d{b, City::Tokyo};
     d.take_card(City::Moscow);
     d.fly_direct(City::Moscow);
     CHECK(d.has_card(City::Moscow));
+
+    CHECK(d.role() == "Dispatcher");
 }
 
 
 TEST_CASE ("Scientist customs") {
     Board b{};
 
+    // Check can discover cure with card_needed param
     Scientist s{b, City::Tokyo, 2};
     s.take_card(City::Tokyo);
     s.take_card(City::Seoul);
@@ -256,6 +264,8 @@ TEST_CASE ("Scientist customs") {
     b[City::Tokyo] = 23;
     s.treat(City::Tokyo);
     CHECK(b[City::Tokyo] == 0); // Has cure.
+
+    CHECK(s.role() == "Scientist");
 }
 
 
@@ -265,29 +275,39 @@ TEST_CASE ("Researcher customs") {
     OperationsExpert oe{b, City::Tokyo};
     oe.build();
     Researcher r{b, City::Tokyo};
+
+    // Check can discover cure without research center inplace
     r.discover_cure(Color::Red);
     b[City::Tokyo] = 23;
     r.treat(City::Tokyo);
     CHECK(b[City::Tokyo] == 0); // Has cure.
+
+    CHECK(r.role() == "Researcher");
 }
 
 TEST_CASE ("Medic customs") {
     Board b{};
 
+    // Check treats all cubes
     Medic m{b, City::Tokyo};
     b[City::Tokyo] = 23;
     m.treat(City::Tokyo);
     CHECK(b[City::Tokyo] == 0); // I'm a medic.
+
+    CHECK(m.role() == "Medic");
 }
 
 
 TEST_CASE ("Virologist customs") {
     Board b{};
 
+    // Check can treat anywhere
     Virologist v{b, City::Moscow};
     b[City::Tokyo] = 23;
     v.treat(City::Tokyo);
     CHECK(b[City::Tokyo] == 0);
+
+    CHECK(v.role() == "Virologist");
 }
 
 
@@ -296,6 +316,7 @@ TEST_CASE ("GeneSplicer customs") {
 
     GeneSplicer g{b, City::Tokyo};
 
+    // Check can have any color cards
     g.take_card(City::LosAngeles); // Take yellow cards
     g.take_card(City::Lagos); // Take yellow cards
     g.take_card(City::Lima); // Take yellow cards
@@ -312,6 +333,8 @@ TEST_CASE ("GeneSplicer customs") {
     CHECK_FALSE(g.has_card(City::Lima));
     CHECK_FALSE(g.has_card(City::Santiago));
     CHECK_FALSE(g.has_card(City::Miami));
+
+    CHECK(g.role() == "GeneSplicer");
 }
 
 
@@ -323,10 +346,14 @@ TEST_CASE ("FieldDoctor customs") {
     b[City::Seoul] = 1;
     b[City::Osaka] = 1;
 
+    // Check can treat nearby
+
     f.treat(City::Seoul);
     f.treat(City::Osaka);
 
     CHECK(b[City::Seoul] ==0);
     CHECK(b[City::Osaka] ==0);
     CHECK_THROWS(f.treat(City::Moscow));
+
+    CHECK(f.role() == "FieldDoctor");
 }
