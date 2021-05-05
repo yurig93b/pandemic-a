@@ -5,12 +5,17 @@
 
 #include <cmath>
 #include <array>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <string>
+#include "doctest.h"
+
+
 #include "Board.hpp"
 #include "City.hpp"
 #include "Color.hpp"
 #include "Player.hpp"
-
-
 #include "OperationsExpert.hpp"
 #include "Dispatcher.hpp"
 #include "FieldDoctor.hpp"
@@ -20,14 +25,7 @@
 #include "Scientist.hpp"
 #include "Virologist.hpp"
 
-#include "doctest.h"
-
 using namespace pandemic;
-
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <string>
 
 // a func to get a random positive int
 u_int getrandom(u_int min, u_int max) {
